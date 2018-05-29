@@ -1,0 +1,3 @@
+#!/bin/bash
+HOME=/data12/probdcsc/test/y_yong/ldrapp_product_mask
+java -Xmx120m -Xms120m -XX:PermSize=40M -XX:MaxPermSize=40M -XX:+DisableExplicitGC -cp $HOME/libs/bdcsc2-kv-console-2.0.18.jar  cn.ctyun.bigdata.bdcsc2.kv.boot.BootKv   -initKV $HOME/conf/init.kv.properties -c $HOME/conf/product.properties

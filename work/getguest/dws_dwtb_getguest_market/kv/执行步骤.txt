@@ -1,0 +1,12 @@
+第一步：创建KV表（一次性执行）：./bdcscCli
+
+第二步：
+更改配置文件conf目录下DecodeMd5Number.properties文件
+hiveip修改：url=jdbc:hive2://10.0.171.51:10000/dal_bdcsc;auth=noSasl
+更改为
+url=jdbc:hive2://“测试区hive对应IP”/dal_bdcsc;auth=noSasl
+节点IP修改：
+kv.cluster.nodes=10.0.171.219:6381,10.0.171.220:6381
+修改为：kv.cluster.nodes=“生产区节点”
+
+然后执行  sh startDecodeIdMdn.sh
