@@ -1,0 +1,61 @@
+--合规性校验
+imsi：(length(imsi)=15 and substr(imsi, 1, 3) = 460 and imsi regexp '^[0-9]{15}$')
+(length('460030941165191')=15 and substr('460030941165191', 1, 3) = 460 and '460030941165191' regexp '^[0-9]{15}$')
+
+imei: (length(imei) = 14 or
+      length(imei) = 15 and
+      (10 -
+      (substr(imei, 1, 1) + substr(imei, 3, 1) + substr(imei, 5, 1) +
+      substr(imei, 7, 1) + substr(imei, 9, 1) + substr(imei, 11, 1) +
+      substr(imei, 13, 1) + (substr(imei, 2, 1) * 2)
+       %10 + (substr(imei, 4, 1) * 2) %10 + (substr(imei, 6, 1) * 2)
+       %10 + (substr(imei, 8, 1) * 2) %10 + (substr(imei, 10, 1) * 2)
+       %10 + (substr(imei, 12, 1) * 2) %10 + (substr(imei, 14, 1) * 2)
+       %10 + floor((substr(imei, 2, 1) * 2) / 10) +
+       floor((substr(imei, 4, 1) * 2) / 10) +
+       floor((substr(imei, 6, 1) * 2) / 10) +
+       floor((substr(imei, 8, 1) * 2) / 10) +
+       floor((substr(imei, 10, 1) * 2) / 10) +
+       floor((substr(imei, 12, 1) * 2) / 10) +
+       floor((substr(imei, 14, 1) * 2) / 10)) %10) = substr(imei, 15, 1))
+	   
+meid: conv(16 -
+            (conv(substr(meid, 1, 1), 16, 10) +
+            conv(substr(meid, 3, 1), 16, 10) +
+            conv(substr(meid, 5, 1), 16, 10) +
+            conv(substr(meid, 7, 1), 16, 10) +
+            conv(substr(meid, 9, 1), 16, 10) +
+            conv(substr(meid, 11, 1), 16, 10) +
+            conv(substr(meid, 13, 1), 16, 10) +
+            (conv(substr(meid, 2, 1), 16, 10) * 2)
+             %16 + (conv(substr(meid, 4, 1), 16, 10) * 2)
+             %16 + (conv(substr(meid, 6, 1), 16, 10) * 2)
+             %16 + (conv(substr(meid, 8, 1), 16, 10) * 2)
+             %16 + (conv(substr(meid, 10, 1), 16, 10) * 2)
+             %16 + (conv(substr(meid, 12, 1), 16, 10) * 2)
+             %16 + (conv(substr(meid, 14, 1), 16, 10) * 2)
+             %16 +
+             floor((conv(substr(meid, 2, 1), 16, 10) * 2) / 16) +
+             floor((conv(substr(meid, 4, 1), 16, 10) * 2) / 16) +
+             floor((conv(substr(meid, 6, 1), 16, 10) * 2) / 16) +
+             floor((conv(substr(meid, 8, 1), 16, 10) * 2) / 16) +
+             floor((conv(substr(meid, 10, 1), 16, 10) * 2) / 16) +
+             floor((conv(substr(meid, 12, 1), 16, 10) * 2) / 16) +
+             floor((conv(substr(meid, 14, 1), 16, 10) * 2) / 16)) %16,
+            10,
+            16)=substr(meid,15,1);
+	   
+mac: mac regexp '^([0-9a-fA-F]{2})(([/\s:-][0-9a-fA-F]{2}){5})$'
+60-21-01-16-E9-B5
+74:a5:28:10:fe:fd
+'60-21-01-16-E9-B5' regexp '^([0-9A-Fa-f]{2}[\-|\:]?){5}[0-9A-Fa-f]{2}$'
+'60-21-01-16-E9-B5' regexp '^([0-9a-fA-F]{2})(([/\s:-][0-9a-fA-F]{2}){5})$'
+'74:a5:28:10:fe:fd' regexp '^([0-9a-fA-F]{2})(([/\s:-][0-9a-fA-F]{2}){5})$'
+'74:a5:28:10:fe:fd' regexp '^([0-9A-Fa-f]{2}[\-|\:]?){5}[0-9A-Fa-f]{2}$'
+
+idfa: (idfa regexp '^[0-9A-Fa-f]{8}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{12}$' and idfa <> '00000000-0000-0000-000000000000')
+
+andriod_id: (android_id regexp '^[0-9A-Fa-f]{16}$' and android_id regexp '[^0]{16}$')
+
+devicetoken: (devicetoken regexp '[0-9a-z]{64}$' and devicetoken regexp '[^0]{64}$')
+
